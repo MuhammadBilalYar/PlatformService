@@ -20,6 +20,6 @@ jobs:
     - name: Test with environment variables
       run: echo $TAG_NAME
       env:
-        TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}-${{ GITHUB_ACTION }}
+        TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}-${{ env.GITHUB_ACTION }}
     - name: Build the Docker image
       run: docker build -f "PlatformService/Dockerfile-github" . ${{ env.TAG_NAME }}
