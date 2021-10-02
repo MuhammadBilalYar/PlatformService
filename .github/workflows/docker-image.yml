@@ -28,6 +28,6 @@ jobs:
       env:
         TAG_NAME: muhammadbilalyar/platformservice:${{ steps.date.outputs.date }}
     - name: Build the image
-      run: docker build -f "PlatformService/Dockerfile-github" . -t ${{ env.TAG_NAME }}
+      run: docker build -f "PlatformService/Dockerfile-github" . -t $TAG_NAME
     - name: Push Image
-      run: docker push ${{ env.TAG_NAME }}
+      run: docker push $TAG_NAME
