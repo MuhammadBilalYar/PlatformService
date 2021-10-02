@@ -20,9 +20,9 @@ jobs:
     - name: Create Image tag
       run: echo $TAG_NAME
       env:
-        TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}
+        TAG_NAME: muhammadbilalyar/platformservice:${{ steps.date.outputs.date }}
     - name: Build the image
-      run: docker build -f "PlatformService/Dockerfile-github" . ${{ env.TAG_NAME }}
+      run: docker build -f "PlatformService/Dockerfile-github" . -t ${{ env.TAG_NAME }}
     - name: Docker Login
       env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
