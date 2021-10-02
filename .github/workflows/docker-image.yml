@@ -14,12 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Login
-      env:
-          DOCKER_USER: ${{ secrets.DOCKER_USER }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run:
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
@@ -29,5 +23,11 @@ jobs:
         TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}
     - name: Build the image
       run: docker build -f "PlatformService/Dockerfile-github" . ${{ env.TAG_NAME }}
+    - name: Docker Login
+      env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run:
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Push Image
-      run: docker push
+      run: docker push ${{ env.TAG_NAME }}
