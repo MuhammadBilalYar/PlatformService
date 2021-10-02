@@ -16,10 +16,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
     - name: Test with environment variables
       run: echo $TAG_NAME
       env:
-        TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}-${{ env.GITHUB_ACTION }}
+        TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}
     - name: Build the Docker image
       run: docker build -f "PlatformService/Dockerfile-github" . ${{ env.TAG_NAME }}
