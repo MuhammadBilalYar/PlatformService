@@ -18,9 +18,8 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Test with environment variables
-        run: echo $TAG_NAME - $RELEASE_NAME
+        run: echo $TAG_NAME
         env:
-          TAG_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}-${{ github.event.number }}
-          RELEASE_NAME: muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}
+          TAG_NAME: muhammadbilalyar/platformservice:${{ steps.date.outputs.date }}-${{ GITHUB_ACTION }}
     - name: Build the Docker image
-      run: docker build -f "PlatformService/Dockerfile-github" . muhammadbilalyar:platformservice:${{ steps.date.outputs.date }}${{ github.event.number }}
+      run: docker build -f "PlatformService/Dockerfile-github" . ${{ env.TAG_NAME }}
